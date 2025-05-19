@@ -34,6 +34,13 @@ public class GUI extends JFrame
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(800, 500);
         window.setLocationRelativeTo(null);
+        
+        Country countryName = new Country("Country", 0, 0, "in");
+        imageLabel = new JLabel();
+        imageLabel.setHorizontalAlignment(JLabel.CENTER);
+        showShapeImage(countryName);
+    }
+
         /* 
         setTitle("Worldle");
         setSize(500, 500);
@@ -76,7 +83,7 @@ public class GUI extends JFrame
    
     private void showShapeImage(Country countryName)
     {
-        String path = "/Users/ahladmodi/Documents/Virginia Tech/Personal/all/" + countryName.getCode() + "256.png";
+        String path = "/Users/ahladmodi/Documents/Virginia Tech/Personal/all/" + countryName.getCode() + "/256.png";
         File file = new File(path);
         if (file.exists())
         {
@@ -124,8 +131,23 @@ public class GUI extends JFrame
         }
     }
     */
+    
+    private void showShapeImage(Country countryName)
+    {
+        String path = "/Users/ahladmodi/Documents/Virginia Tech/Personal/all/" + countryName.getCode() + "/256.png";
+        File file = new File(path);
+        if (file.exists())
+        {
+            ImageIcon icon = new ImageIcon(path);
+            Image scaled = icon.getImage().getScaledInstance(250, 200, Image.SCALE_SMOOTH);
+            imageLabel.setIcon(new ImageIcon(scaled));
+        }
+        else
+        {
+            imageLabel.setText(" Image not found for " + countryName.getName());
+        }
+        window.add(imageLabel, BorderLayout.CENTER);
     }
-
     public void show()
     {
         window.setVisible(true);
