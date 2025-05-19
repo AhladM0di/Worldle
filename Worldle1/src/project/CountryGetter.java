@@ -22,7 +22,8 @@ public class CountryGetter
             String[] parts = line.split(",");
             countries.add(new Country(parts[1],
             Double.parseDouble(parts[2]),
-            Double.parseDouble(parts[3])));
+            Double.parseDouble(parts[3]),
+            parts[4]));
         }
         reader.close();
     }
@@ -54,5 +55,7 @@ public class CountryGetter
     {
         return countries;
     }
+
+
 
 }
