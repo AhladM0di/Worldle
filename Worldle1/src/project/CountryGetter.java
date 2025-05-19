@@ -16,14 +16,15 @@ public class CountryGetter
     public CountryGetter(String filepath) throws IOException
     {
         BufferedReader reader = new BufferedReader(new FileReader(filepath));
-        String line;
-        while ((line = reader.readLine()) != null)
+        String line = reader.readLine();
+        while (line != null)
         {
             String[] parts = line.split(",");
             countries.add(new Country(parts[1],
             Double.parseDouble(parts[2]),
             Double.parseDouble(parts[3]),
             parts[4]));
+            line = reader.readLine();
         }
         reader.close();
     }
@@ -56,6 +57,18 @@ public class CountryGetter
         return countries;
     }
 
-
-
+    /**
+     * @return boolean indicating if the country is valid
+     */
+    public boolean isValidCountry(Country country)
+    {
+        for (Country c : countries)
+        {
+            if ((c.getName().toLowerCase()).equals(country.getName().toLowerCase()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

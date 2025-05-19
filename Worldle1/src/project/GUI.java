@@ -2,10 +2,15 @@ package project;
 
 import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.io.File;
@@ -37,7 +42,22 @@ public class GUI extends JFrame
             imageLabel.setHorizontalAlignment(JLabel.CENTER);
             showShapeImage(answerCountry);
             add(imageLabel, BorderLayout.CENTER);
+            JPanel inputPanel = new JPanel(new BorderLayout());
+            inputField = new JTextField();
+            JButton guessButton = new JButton("Guess");
 
+            inputPanel.add(new JLabel("Your Guess: "), BorderLayout.WEST);
+            inputPanel.add(inputField, BorderLayout.CENTER);
+            inputPanel.add(guessButton, BorderLayout.EAST);
+            add(inputPanel, BorderLayout.NORTH);    
+
+            // Feedback
+            feedbackArea = new JTextArea();
+            feedbackArea.setEditable(false);
+            add(new JScrollPane(feedbackArea), BorderLayout.SOUTH);
+
+            // Action on guess
+            guessButton.addActionListener(e -> checkGuess(countryNames));
         }
         
         catch (java.io.IOException e)
@@ -69,11 +89,16 @@ public class GUI extends JFrame
     /**
      * This method is called when the user submits their guess.
      */
-    private void checkGuess()
+    private void checkGuess(CountryGetter countries)
     {
         String guess = inputField.getText().toLowerCase();
-
-        if (guess.equals(answerCountry.getName().toLowerCase()))
+        Country guessedCountry = new Country(guess);
+        if (!countries.isValidCountry(guessedCountry))
+        {
+            feedbackArea.setText("Invalid country name. Please try again.");
+            return;
+        }
+        if (guessedCountry.equals(answerCountry))
         {
             feedbackArea.setText("Correct! The country is " + answerCountry.getName());
             attempts = 0; // Reset attempts
@@ -95,5 +120,10 @@ public class GUI extends JFrame
                 feedbackArea.setText("Incorrect! Attempts left: " + (MAX_ATTEMPTS - attempts));
             }
         }
+    }
+
+    public static void main(String[] args)
+    {
+        SwingUtilities.invokeLater(() -> new GUI().setVisible(true));
     }
 }
