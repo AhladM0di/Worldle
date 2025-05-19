@@ -1,6 +1,5 @@
 package project;
 
-import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,12 +22,19 @@ public class GUI extends JFrame
     private int attempts = 0;
     private final int MAX_ATTEMPTS = 6;
 
+    private JFrame window;
     private JLabel imageLabel;
     private JTextField inputField;
     private JTextArea feedbackArea;
 
     public GUI()
     {
+        window = new JFrame();
+        window.setTitle("Worldle");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setSize(800, 500);
+        window.setLocationRelativeTo(null);
+        /* 
         setTitle("Worldle");
         setSize(500, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -67,9 +73,7 @@ public class GUI extends JFrame
         }
     }
 
-    /**
-     * This method is called when the user submits their guess.
-     */
+   
     private void showShapeImage(Country countryName)
     {
         String path = "/Users/ahladmodi/Documents/Virginia Tech/Personal/all/" + countryName.getCode() + "256.png";
@@ -86,9 +90,7 @@ public class GUI extends JFrame
         }
     }
 
-    /**
-     * This method is called when the user submits their guess.
-     */
+
     private void checkGuess(CountryGetter countries)
     {
         String guess = inputField.getText().toLowerCase();
@@ -121,9 +123,12 @@ public class GUI extends JFrame
             }
         }
     }
-
-    public static void main(String[] args)
-    {
-        SwingUtilities.invokeLater(() -> new GUI().setVisible(true));
+    */
     }
+
+    public void show()
+    {
+        window.setVisible(true);
+    }
+
 }
