@@ -9,6 +9,7 @@ import java.io.*;
 public class CountryGetter
 {
     private List<Country> countries = new ArrayList<>();
+    
 
     /**
      * Constructor for objects of class CountryGetter

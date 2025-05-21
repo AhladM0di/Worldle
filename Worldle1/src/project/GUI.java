@@ -35,10 +35,13 @@ public class GUI extends JFrame
         window.setSize(800, 500);
         window.setLocationRelativeTo(null);
         
-        Country countryName = new Country("Country", 0, 0, "in");
+        answerCountry = new Country("India",0,0,"in");
         imageLabel = new JLabel();
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
-        showShapeImage(countryName);
+        ImageIcon icon = new ImageIcon("/Users/ahladmodi/Documents/Virginia Tech/Personal/all/" + answerCountry.getCode() + "/256.png");
+        Image scaled = icon.getImage().getScaledInstance(250, 200, Image.SCALE_SMOOTH);
+        imageLabel.setIcon(new ImageIcon(scaled));
+        window.add(imageLabel);
     }
 
         /* 

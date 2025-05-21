@@ -1,7 +1,10 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": [
+        "src"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "/Users/ahladmodi/Documents/Virginia Tech/Personal/junit-4.13.2-javadoc.jar",
+        "test-lib/**/*.jar"
     ]
 }
