@@ -33,7 +33,7 @@ public class Country
      */
     public String getName()
     {
-        return name;
+        return name.toLowerCase();
     }
 
     /**
@@ -57,7 +57,7 @@ public class Country
      */
     public String getCode()
     {
-        return code;
+        return code.toLowerCase();
     }
 
     /**
