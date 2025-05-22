@@ -67,4 +67,12 @@ public class Country
     {
         return this.name.equalsIgnoreCase(other.name);
     }
+
+    /**
+     * @return a string representation of the country
+     */
+    public String toString()
+    {
+        return "Country: " + name + ", Latitude: " + latitude + ", Longitude: " + longitude + ", Code: " + code;
+    }
 }

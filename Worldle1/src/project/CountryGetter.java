@@ -8,7 +8,7 @@ import java.io.*;
  */
 public class CountryGetter
 {
-    private List<Country> countries = new ArrayList<>();
+    private Country[] countries = new Country[245];
     
 
     /**
@@ -18,13 +18,15 @@ public class CountryGetter
     {
         BufferedReader reader = new BufferedReader(new FileReader(filepath));
         String line = reader.readLine();
+        int index = 0;
         while (line != null)
         {
             String[] parts = line.split(",");
-            countries.add(new Country(parts[1],
+            countries[index] = new Country(parts[3],
+            Double.parseDouble(parts[1]),
             Double.parseDouble(parts[2]),
-            Double.parseDouble(parts[3]),
-            parts[4]));
+            parts[0]);
+            index++;
             line = reader.readLine();
         }
         reader.close();
@@ -36,7 +38,7 @@ public class CountryGetter
     public Country getRandomCountry()
     {
         Random rand = new Random();
-        return countries.get(rand.nextInt(countries.size()));
+        return countries[rand.nextInt(countries.length)];
     }
 
      public Country findCountryByName(String name)
@@ -53,7 +55,7 @@ public class CountryGetter
     /**
      * @return the list of countries
      */
-    public List<Country> getCountries()
+    public Country[] getCountries()
     {
         return countries;
     }
@@ -71,5 +73,12 @@ public class CountryGetter
             }
         }
         return false;
+    }
+    /**
+     * @return boolean indicating if the country is valid
+     */
+    public Country get(int index)
+    {
+        return countries[index];
     }
 }

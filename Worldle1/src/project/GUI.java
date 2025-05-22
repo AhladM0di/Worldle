@@ -12,7 +12,9 @@ import javax.swing.SwingUtilities;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 
 public class GUI extends JFrame
@@ -35,13 +37,29 @@ public class GUI extends JFrame
         window.setSize(800, 500);
         window.setLocationRelativeTo(null);
         
-        answerCountry = new Country("India",0,0,"in");
-        imageLabel = new JLabel();
-        imageLabel.setHorizontalAlignment(JLabel.CENTER);
-        ImageIcon icon = new ImageIcon("/Users/ahladmodi/Documents/Virginia Tech/Personal/all/" + answerCountry.getCode() + "/256.png");
-        Image scaled = icon.getImage().getScaledInstance(250, 200, Image.SCALE_SMOOTH);
-        imageLabel.setIcon(new ImageIcon(scaled));
-        window.add(imageLabel);
+        try
+        {
+            countryNames = new CountryGetter("/Users/ahladmodi/Documents/Virginia Tech/Personal/countryNames.csv");
+            answerCountry = countryNames.getRandomCountry();
+            imageLabel = new JLabel();
+            imageLabel.setHorizontalAlignment(JLabel.CENTER);
+            showShapeImage(answerCountry);
+        }
+        catch (java.io.IOException e)
+        {
+            e.printStackTrace();
+            // Optionally, show an error dialog or handle the error appropriately
+        }
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        inputField = new JTextField();
+        JButton guessButton = new JButton("Guess");
+
+        inputPanel.add(new JLabel("Your Guess: "), BorderLayout.WEST);
+        inputPanel.add(inputField, BorderLayout.CENTER);
+        inputPanel.add(guessButton, BorderLayout.EAST);
+        window.add(inputPanel, BorderLayout.NORTH);
+        
+        
     }
 
         /* 
@@ -137,7 +155,7 @@ public class GUI extends JFrame
     
     private void showShapeImage(Country countryName)
     {
-        String path = "/Users/ahladmodi/Documents/Virginia Tech/Personal/all/" + countryName.getCode() + "/256.png";
+        String path = "/Users/ahladmodi/Documents/Virginia Tech/Personal/all/" + answerCountry.getCode().substring(1) + "/256.png";
         File file = new File(path);
         if (file.exists())
         {
