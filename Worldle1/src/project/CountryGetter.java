@@ -8,7 +8,7 @@ import java.io.*;
  */
 public class CountryGetter
 {
-    private Country[] countries = new Country[245];
+    private Country[] countries = new Country[244];
     
 
     /**
@@ -22,10 +22,10 @@ public class CountryGetter
         while (line != null)
         {
             String[] parts = line.split(",");
-            countries[index] = new Country(parts[3],
+            countries[index] = new Country(parts[3].substring(0, parts[3].length()-1).toLowerCase(),
             Double.parseDouble(parts[1]),
             Double.parseDouble(parts[2]),
-            parts[0]);
+            parts[0].substring(1));
             index++;
             line = reader.readLine();
         }
@@ -67,7 +67,8 @@ public class CountryGetter
     {
         for (Country c : countries)
         {
-            if ((c.getName().toLowerCase()).equals(country.getName().toLowerCase()))
+            System.out.println(c.getName());
+            if ((c).equals(country) && c!= null)
             {
                 return true;
             }

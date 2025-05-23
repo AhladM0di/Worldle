@@ -33,6 +33,7 @@ public class Country
      */
     public String getName()
     {
+    
         return name.toLowerCase();
     }
 
@@ -65,7 +66,7 @@ public class Country
      */
     public boolean equals(Country other)
     {
-        return this.name.equalsIgnoreCase(other.name);
+        return this.getName().equalsIgnoreCase(other.getName());
     }
 
     /**
