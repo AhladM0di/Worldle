@@ -67,7 +67,6 @@ public class CountryGetter
     {
         for (Country c : countries)
         {
-            System.out.println(c.getName());
             if ((c).equals(country) && c!= null)
             {
                 return true;

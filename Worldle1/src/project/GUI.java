@@ -28,6 +28,7 @@ public class GUI extends JFrame
     private JLabel imageLabel;
     private JTextField inputField;
     private JTextArea feedbackArea;
+    private String feedback = "";
 
     public GUI()
     {
@@ -62,6 +63,7 @@ public class GUI extends JFrame
         // Feedback
         feedbackArea = new JTextArea();
         feedbackArea.setEditable(false);
+        feedbackArea.setSize(300, 200);
         window.add(new JScrollPane(feedbackArea), BorderLayout.SOUTH);
 
         // Action on guess
@@ -73,7 +75,6 @@ public class GUI extends JFrame
 
     private void checkGuess(CountryGetter countries)
     {
-        System.out.println("Checking guess...");
         String guess = inputField.getText().toLowerCase();
         Country guessedCountry = new Country(guess);
         if (!countries.isValidCountry(guessedCountry))
@@ -93,7 +94,6 @@ public class GUI extends JFrame
             attempts++;
             if (attempts >= MAX_ATTEMPTS)
             {
-                System.out.println("Game Over! The correct country was " + answerCountry.getName());
                 feedbackArea.setText("Game Over! The correct country was " + answerCountry.getName());
                 attempts = 0; // Reset attempts
                 answerCountry = countryNames.getRandomCountry();
@@ -101,7 +101,10 @@ public class GUI extends JFrame
             }
             else
             {
-                feedbackArea.setText("Incorrect! Attempts left: " + (MAX_ATTEMPTS - attempts));
+                feedback += "Distance: " + guessedCountry.getDistance(answerCountry) + " km\n";
+                feedback += "Direction: " + guessedCountry.getDirection(answerCountry) + "\n";
+
+                feedbackArea.setText(feedback+"Incorrect! Attempts left: " + (MAX_ATTEMPTS - attempts));
             }
         }
     }
