@@ -6,15 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 
 
 public class GUI extends JFrame
@@ -23,20 +21,22 @@ public class GUI extends JFrame
     private Country answerCountry;
     private int attempts = 0;
     private final int MAX_ATTEMPTS = 6;
+    private String[][] tableData = new String[6][3]; 
+    private String[] columnNames = {"Country", "Distance", "Feedback"};
 
     private JFrame window;
     private JLabel imageLabel;
     private JTextField inputField;
     private JTextArea feedbackArea;
-    private String feedback = "";
+    private JPanel inputPanel;
+    private JPanel feedbackPanel;
 
     public GUI()
     {
         window = new JFrame();
         window.setTitle("Worldle");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(800, 500);
-        window.setLocationRelativeTo(null);
+        window.setSize(800, 800);
         
         try
         {
@@ -51,20 +51,28 @@ public class GUI extends JFrame
             e.printStackTrace();
             // Optionally, show an error dialog or handle the error appropriately
         }
-        JPanel inputPanel = new JPanel(new BorderLayout());
+        
         inputField = new JTextField();
         JButton guessButton = new JButton("Guess");
-
+        inputPanel = new JPanel(new BorderLayout());
         inputPanel.add(new JLabel("Your Guess: "), BorderLayout.WEST);
         inputPanel.add(inputField, BorderLayout.CENTER);
         inputPanel.add(guessButton, BorderLayout.EAST);
         window.add(inputPanel, BorderLayout.NORTH);
 
+        feedbackPanel = new JPanel(new BorderLayout());
+        // Table for entered guesses
+        JTable guessTable = new JTable(tableData, columnNames);
+        guessTable.setEnabled(false); // Disable editing
+        feedbackPanel.add(new JScrollPane(guessTable), BorderLayout.NORTH);
+
+
         // Feedback
-        feedbackArea = new JTextArea();
+        feedbackArea = new JTextArea(3,7);
         feedbackArea.setEditable(false);
-        feedbackArea.setSize(300, 200);
-        window.add(new JScrollPane(feedbackArea), BorderLayout.SOUTH);
+        feedbackArea.setSize(300, 100);
+        feedbackPanel.add(new JScrollPane(feedbackArea), BorderLayout.SOUTH);
+        window.add(feedbackPanel, BorderLayout.SOUTH);
 
         // Action on guess
         guessButton.addActionListener(e -> checkGuess(countryNames));
@@ -101,10 +109,7 @@ public class GUI extends JFrame
             }
             else
             {
-                feedback += "Distance: " + guessedCountry.getDistance(answerCountry) + " km\n";
-                feedback += "Direction: " + guessedCountry.getDirection(answerCountry) + "\n";
-
-                feedbackArea.setText(feedback+"Incorrect! Attempts left: " + (MAX_ATTEMPTS - attempts));
+                feedbackArea.setText("Incorrect! Attempts left: " + (MAX_ATTEMPTS - attempts));
             }
         }
     }

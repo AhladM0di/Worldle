@@ -1,8 +1,5 @@
 package project;
 import static org.junit.Assert.*;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import org.junit.Test;
 public class CountryGetterTest
