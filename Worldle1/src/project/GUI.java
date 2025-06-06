@@ -30,6 +30,7 @@ public class GUI extends JFrame
     private JTextArea feedbackArea;
     private JPanel inputPanel;
     private JPanel feedbackPanel;
+    private JTable guessTable;
 
     public GUI()
     {
@@ -59,11 +60,11 @@ public class GUI extends JFrame
         inputPanel.add(inputField, BorderLayout.CENTER);
         inputPanel.add(guessButton, BorderLayout.EAST);
         window.add(inputPanel, BorderLayout.NORTH);
-
         feedbackPanel = new JPanel(new BorderLayout());
         // Table for entered guesses
-        JTable guessTable = new JTable(tableData, columnNames);
+        guessTable = new JTable(tableData, columnNames);
         guessTable.setEnabled(false); // Disable editing
+        feedbackPanel.add(new JScrollPane(guessTable), BorderLayout.NORTH);
         feedbackPanel.add(new JScrollPane(guessTable), BorderLayout.NORTH);
 
 
@@ -109,6 +110,13 @@ public class GUI extends JFrame
             }
             else
             {
+                String direction = guessedCountry.getDirection(answerCountry);
+                double distance = guessedCountry.getDistance(answerCountry);
+                
+                guessTable.setValueAt(guessedCountry.getName(), attempts - 1, 0);
+                guessTable.setValueAt(distance + " km", attempts - 1, 1);
+                guessTable.setValueAt(direction, attempts - 1, 2);
+
                 feedbackArea.setText("Incorrect! Attempts left: " + (MAX_ATTEMPTS - attempts));
             }
         }
