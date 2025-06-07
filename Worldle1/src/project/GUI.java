@@ -22,7 +22,7 @@ public class GUI extends JFrame
     private int attempts = 0;
     private final int MAX_ATTEMPTS = 6;
     private String[][] tableData = new String[6][3]; 
-    private String[] columnNames = {"Country", "Distance", "Feedback"};
+    private String[] columnNames = {"Country", "Distance", "Direction"};
 
     private JFrame window;
     private JLabel imageLabel;
@@ -37,7 +37,7 @@ public class GUI extends JFrame
         window = new JFrame();
         window.setTitle("Worldle");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(800, 800);
+        window.setSize(450, 550);
         guessTable = new JTable(tableData, columnNames);
         
         try
@@ -65,15 +65,16 @@ public class GUI extends JFrame
         // Table for entered guesses
         
         guessTable.setEnabled(false); // Disable editing
-        feedbackPanel.add(new JScrollPane(guessTable), BorderLayout.NORTH);
-        feedbackPanel.add(new JScrollPane(guessTable), BorderLayout.NORTH);
+        feedbackPanel.add(new JScrollPane(guessTable), BorderLayout.SOUTH);
+        guessTable.setPreferredScrollableViewportSize(guessTable.getPreferredSize());
+        guessTable.setFillsViewportHeight(true);
 
 
         // Feedback
         feedbackArea = new JTextArea();
         feedbackArea.setEditable(false);
         feedbackArea.setSize(300, 100);
-        feedbackPanel.add(new JScrollPane(feedbackArea), BorderLayout.SOUTH);
+        feedbackPanel.add(new JScrollPane(feedbackArea), BorderLayout.NORTH);
         window.add(feedbackPanel, BorderLayout.SOUTH);
 
         // Action on guess
@@ -92,6 +93,7 @@ public class GUI extends JFrame
             feedbackArea.setText("Invalid country name. Please try again.");
             return;
         }
+        
         else if (guessedCountry.equals(answerCountry))
         {
             feedbackArea.setText("Correct! The country is " + answerCountry.getName());
@@ -101,6 +103,7 @@ public class GUI extends JFrame
         }
         else
         {
+            guessedCountry = countries.findCountryByName(guessedCountry.getName());
             attempts++;
             if (attempts >= MAX_ATTEMPTS)
             {
@@ -111,8 +114,9 @@ public class GUI extends JFrame
             }
             else
             {
+                System.out.println(answerCountry.getName() + guessedCountry.getName());
                 String direction = guessedCountry.getDirection(answerCountry);
-                double distance = guessedCountry.getDistance(answerCountry);
+                int distance = guessedCountry.getDistance(answerCountry);
                 
                 guessTable.setValueAt(guessedCountry.getName(), attempts - 1, 0);
                 guessTable.setValueAt(distance + " km", attempts - 1, 1);
@@ -126,7 +130,7 @@ public class GUI extends JFrame
     
     private void showShapeImage(Country countryName)
     {
-        String path = "/Users/ahladmodi/Documents/Virginia Tech/Personal/all/" + answerCountry.getCode() + "/256.png";
+        String path = "/Users/ahladmodi/Documents/Virginia Tech /Personal/all/" + answerCountry.getCode() + "/256.png";
         File file = new File(path);
         if (file.exists())
         {
