@@ -38,6 +38,7 @@ public class GUI extends JFrame
         window.setTitle("Worldle");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(800, 800);
+        guessTable = new JTable(tableData, columnNames);
         
         try
         {
@@ -56,20 +57,20 @@ public class GUI extends JFrame
         inputField = new JTextField();
         JButton guessButton = new JButton("Guess");
         inputPanel = new JPanel(new BorderLayout());
-        inputPanel.add(new JLabel("Your Guess: "), BorderLayout.WEST);
+        inputPanel.add(new JLabel(" Your Guess: "), BorderLayout.WEST);
         inputPanel.add(inputField, BorderLayout.CENTER);
         inputPanel.add(guessButton, BorderLayout.EAST);
         window.add(inputPanel, BorderLayout.NORTH);
         feedbackPanel = new JPanel(new BorderLayout());
         // Table for entered guesses
-        guessTable = new JTable(tableData, columnNames);
+        
         guessTable.setEnabled(false); // Disable editing
         feedbackPanel.add(new JScrollPane(guessTable), BorderLayout.NORTH);
         feedbackPanel.add(new JScrollPane(guessTable), BorderLayout.NORTH);
 
 
         // Feedback
-        feedbackArea = new JTextArea(3,7);
+        feedbackArea = new JTextArea();
         feedbackArea.setEditable(false);
         feedbackArea.setSize(300, 100);
         feedbackPanel.add(new JScrollPane(feedbackArea), BorderLayout.SOUTH);
@@ -137,6 +138,14 @@ public class GUI extends JFrame
         {
             imageLabel.setText(" Image not found for " + countryName.getName());
         }
+        for (int i = 0; i < tableData.length; i++)
+        {
+            for (int j = 0; j < tableData[i].length; j++)
+            {
+                tableData[i][j] = null;
+            }
+        }
+        guessTable.repaint();
         window.add(imageLabel, BorderLayout.CENTER);
     }
     public void show()
