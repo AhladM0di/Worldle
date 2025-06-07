@@ -130,7 +130,7 @@ public class GUI extends JFrame
     
     private void showShapeImage(Country countryName)
     {
-        String path = "/Users/ahladmodi/Documents/Virginia Tech /Personal/all/" + answerCountry.getCode() + "/256.png";
+        String path = "/Users/ahladmodi/Documents/Virginia Tech/Personal/all/" + answerCountry.getCode() + "/256.png";
         File file = new File(path);
         if (file.exists())
         {
