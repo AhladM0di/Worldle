@@ -1,9 +1,6 @@
 package project;
-
-
-
 /**
- * 
+ * The Country class represents a country with its name, latitude, longitude, and code.
  */
 public class Country
 {
