@@ -27,7 +27,8 @@ Country images => https://github.com/djaiss/mapsicon
 
 
 ## **REMINDER !!!!**
-Make sure to change the path accroding to your PC whenever using again
+1) Make sure to change the path accroding to your PC whenever using again
+2) Extract the All folder
 
 Paths are on the GUI file on lines **45, 133**
 
