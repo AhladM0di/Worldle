@@ -1,7 +1,7 @@
 #  Worldle Game - Java Edition
 
 This is a Java-based version of the popular geography guessing game **Worldle**. The project provides a graphical interface to guess country names based on clues.
-Official Game : https://worldle.teuteuf.fr/
+\nOfficial Game : https://worldle.teuteuf.fr/
 
 ## 📁 Project Structure
 
@@ -19,4 +19,4 @@ Paths are on the GUI file on lines 45, 133
 
 **Resources used:**
 Countries with long/lat => https://developers.google.com/public-data/docs/canonical/countries_csv
-Country images => https://github.com/djaiss/mapsicon
+\nCountry images => https://github.com/djaiss/mapsicon
